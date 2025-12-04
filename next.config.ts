@@ -1,9 +1,15 @@
 import type { NextConfig } from "next";
 import path from "node:path";
 
-const LOADER = path.resolve(__dirname, "src/visual-edits/component-tagger-loader.js");
+const LOADER = path.resolve(
+  __dirname,
+  "src/visual-edits/component-tagger-loader.js"
+);
 
 const nextConfig: NextConfig = {
+  // Required for Cloudflare Pages + Static Export + APK
+  output: "export",
+
   images: {
     unoptimized: true, // Required for static export deployment
     remotePatterns: [
@@ -18,10 +24,6 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // 👇 FULL STATIC BUILD FOR CLOUDLARE PAGES + APK (Required)
-  output: "export",
-
-  // Avoid server bundle creation → fixes Cloudflare 25MB error
   experimental: {
     optimizePackageImports: [],
   },
